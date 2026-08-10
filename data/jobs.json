@@ -1,0 +1,8 @@
+[
+  {"title":"Pharmacovigilance Associate","company":"Pfizer","location":"Hyderabad","link":"https://example.com/job1","description":"Review adverse event reports and perform ICSR case processing in Argus Safety.","salary":"$70,000 - $90,000","posted_date":"2 days ago","remote_hybrid":"Hybrid"},
+  {"title":"Drug Safety Scientist","company":"Moderna","location":"Boston, MA","link":"https://example.com/job2","description":"Lead signal detection activities and prepare periodic safety reports for oncology portfolio.","salary":"$110,000 - $130,000","posted_date":"1 day ago","remote_hybrid":"Remote"},
+  {"title":"Regulatory Affairs Manager","company":"Novartis","location":"Cambridge, MA","link":"https://example.com/job3","description":"Prepare CTD dossiers and manage FDA submissions for immunology products.","salary":"$120,000 - $145,000","posted_date":"3 days ago","remote_hybrid":"On-site"},
+  {"title":"Clinical Research Associate","company":"Regeneron","location":"Tarrytown, NY","link":"https://example.com/job4","description":"Monitor Phase III clinical trial sites and verify source documentation.","salary":"$95,000 - $115,000","posted_date":"5 days ago","remote_hybrid":"Hybrid"},
+  {"title":"QA Validation Specialist","company":"Sun Pharma","location":"Mumbai","location2":"","link":"https://example.com/job5","description":"Execute equipment qualification and cleaning validation protocols under GMP.","salary":"","posted_date":"1 week ago","remote_hybrid":"On-site"},
+  {"title":"Biostatistician","company":"Biocon","location":"Bengaluru","link":"https://example.com/job6","description":"Perform SAS programming and statistical analysis for cardiovascular trials.","salary":"$85,000 - $105,000","posted_date":"4 days ago","remote_hybrid":"Remote"}
+]
