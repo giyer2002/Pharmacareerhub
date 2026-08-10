@@ -78,6 +78,14 @@
             </button>
           </div>
         </div>
+        <div class="mt-6 max-w-2xl mx-auto">
+          <div class="glass rounded-2xl px-5 py-4 flex items-center gap-3">
+            <span class="text-emerald-400 text-lg">🔑</span>
+            <input id="serp-key" type="password" class="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none text-sm" placeholder="SerpApi key → LIVE Google Jobs search (stays only in your browser)" />
+            <button onclick="saveSerpKey()" class="text-sm bg-white/10 hover:bg-white/20 rounded-xl px-4 py-2 transition">Save key</button>
+          </div>
+          <p id="serp-status" class="text-xs text-gray-400 mt-2"></p>
+        </div>
       </div>
     </div>
   </div>
@@ -112,7 +120,7 @@
     let savedJobs = JSON.parse(localStorage.getItem('savedJobs')) || [];
     let candidateProfile = localStorage.getItem('candidateProfile') || '';
     let geminiKey = localStorage.getItem('geminiKey') || '';
-        let serpKey = localStorage.getItem('serpKey') || '';
+    let serpKey = localStorage.getItem('serpKey') || '';
     let activeFilters = { workStyle: new Set(), therapeutic: new Set(), roleType: new Set() };
 
     const FILTER_OPTIONS = {
@@ -122,7 +130,17 @@
     };
 
     const CHUNK = 6;
-        async function loadStaticJobs(title) {
+    const AI_SYSTEM_PROMPT = `You are an expert pharmaceutical/biotech recruiter. Score the candidate against the job on a 0-100 scale. Return **ONLY** valid JSON with this exact structure and nothing else (no markdown, no extra text):
+{ "overall": number, "skills": number, "seniority": number, "therapeutic": number, "role_type": number, "key_matches": ["short bullet 1", "short bullet 2"], "insight": "One short sentence explaining the match", "insight_type": "positive" or "caution" }`;
+
+    function saveSerpKey() {
+      serpKey = document.getElementById('serp-key').value.trim();
+      localStorage.setItem('serpKey', serpKey);
+      const s = document.getElementById('serp-status');
+      if (s) s.textContent = serpKey ? '✓ Live search enabled — results come straight from Google Jobs' : 'Key cleared — searches use sample data';
+    }
+
+    async function loadStaticJobs(title) {
       const r = await fetch('data/jobs.json');
       const all = await r.json();
       const q = title.toLowerCase();
@@ -160,8 +178,6 @@
         };
       });
     }
-    const AI_SYSTEM_PROMPT = `You are an expert pharmaceutical/biotech recruiter. Score the candidate against the job on a 0-100 scale. Return **ONLY** valid JSON with this exact structure and nothing else (no markdown, no extra text):
-{ "overall": number, "skills": number, "seniority": number, "therapeutic": number, "role_type": number, "key_matches": ["short bullet 1", "short bullet 2"], "insight": "One short sentence explaining the match", "insight_type": "positive" or "caution" }`;
 
     function getJobCategories(job) {
       const text = `${job.title || ''} ${job.description || ''}`.toLowerCase();
@@ -173,10 +189,6 @@
 
     function getPostedDate(job) {
       if (job.posted_date) return job.posted_date;
-      if (job.extensions && Array.isArray(job.extensions)) {
-        const dateStr = job.extensions.find(ext => typeof ext === 'string' && (ext.includes('ago') || ext.includes('hour') || ext.includes('day') || ext.includes('today')));
-        if (dateStr) return dateStr;
-      }
       return 'Recently posted';
     }
 
@@ -259,7 +271,7 @@
           });
           if (!res.ok) throw new Error();
           jobs = await res.json();
-         } catch {
+        } catch {
           if (serpKey) {
             try { jobs = await searchSerpApi(title, loc); }
             catch { jobs = await loadStaticJobs(title); }
@@ -297,7 +309,6 @@
         </button>
         <div id="profile-panel">
           <div class="mt-5 border-t border-white/10 pt-5">
-                      <input id="serp-key" type="password" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400/50 mb-3" placeholder="🔑 SerpApi key (optional — enables LIVE Google Jobs search)" value="${serpKey}">
             <input id="gemini-key" type="password" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400/50 mb-3" placeholder="🔑 Gemini API key (optional — stays only in your browser)" value="${geminiKey}">
             <p class="text-sm text-gray-400 mb-3">Paste your experience below (CV upload arrives with the live server)</p>
             <textarea id="profile-input" class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400/50 resize-none" rows="6" placeholder="Paste your resume summary here...">${candidateProfile}</textarea>
@@ -422,10 +433,8 @@
     function saveProfile() {
       candidateProfile = document.getElementById('profile-input').value.trim();
       geminiKey = document.getElementById('gemini-key').value.trim();
-      serpKey = document.getElementById('serp-key').value.trim();
       localStorage.setItem('candidateProfile', candidateProfile);
       localStorage.setItem('geminiKey', geminiKey);
-      localStorage.setItem('serpKey', serpKey);
       document.getElementById('profile-panel').classList.remove('open');
       document.getElementById('profile-chevron').style.transform = '';
       const label = document.getElementById('profile-status-label');
@@ -557,6 +566,10 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       showTab(0);
+      const sk = document.getElementById('serp-key');
+      if (sk) sk.value = serpKey;
+      const st = document.getElementById('serp-status');
+      if (st) st.textContent = serpKey ? '✓ Live search enabled — results come straight from Google Jobs' : 'No key yet — searches use sample data';
       document.querySelectorAll('input').forEach(input => {
         input.addEventListener('keypress', e => {
           if (e.key === 'Enter' && (input.id === 'job-title' || input.id === 'location')) runSearch();
