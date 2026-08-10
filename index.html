@@ -226,14 +226,26 @@
         <div><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
       </div>`;
 
-      try {
-        const res = await fetch(`${BACKEND}/api/search`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, location: loc, num_jobs: 30 })
-        });
-        if (!res.ok) throw new Error();
-        allJobs = await res.json();
+         try {
+        let jobs;
+        try {
+          const res = await fetch(`${BACKEND}/api/search`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, location: loc, num_jobs: 30 })
+          });
+          if (!res.ok) throw new Error();
+          jobs = await res.json();
+        } catch {
+          const r = await fetch('data/jobs.json');
+          const all = await r.json();
+          const q = title.toLowerCase();
+          jobs = all.filter(j =>
+            (j.title || '').toLowerCase().includes(q) ||
+            (j.description || '').toLowerCase().includes(q)
+          );
+        }
+        allJobs = jobs;
         applyFilters();
         renderFilteredResults();
       } catch {
