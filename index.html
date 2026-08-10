@@ -3,49 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- PASTE YOUR GOOGLE SITE VERIFICATION META TAG HERE (from GSC) -->
   <title>PharmaCareer Hub | Biotech & Pharma Jobs</title>
   <meta name="description" content="Live biotech, pharmaceutical, and life sciences jobs from Pfizer, Novartis, Moderna, Regeneron & 400+ companies. Updated daily." />
-  <link rel="canonical" href="https://www.pharmacareerhub.com/" />
+  <link rel="canonical" href="https://giyer2002.github.io/Pharmacareerhub/" />
   <meta property="og:title" content="PharmaCareer Hub | Biotech & Pharma Jobs" />
   <meta property="og:description" content="Live biotech, pharmaceutical, and life sciences jobs from Pfizer, Novartis, Moderna, Regeneron & 400+ companies. Updated daily." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.pharmacareerhub.com/" />
+  <meta property="og:url" content="https://giyer2002.github.io/Pharmacareerhub/" />
   <meta property="og:site_name" content="PharmaCareer Hub" />
   <meta name="twitter:card" content="summary" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
     body { font-family: 'Inter', sans-serif; }
     .logo-font { font-family: 'Space Grotesk', sans-serif; }
-    .glass { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); }
     .hero-bg { background: linear-gradient(135deg, #0a1f1a, #112e2a); }
-    .job-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .job-card { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
     .job-card:hover { transform: translateY(-6px); box-shadow: 0 25px 50px -12px rgb(0 212 170 / 0.3); }
     .nav-link { padding: 12px 24px; border-radius: 9999px; transition: all 0.3s ease; }
-    .nav-link:hover { background: rgba(255, 255, 255, 0.1); }
-    .nav-link.active { background: rgba(0, 212, 170, 0.25); color: #00d4aa; }
-    #tab-0 { transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease; overflow: hidden; max-height: 100vh; opacity: 1; }
+    .nav-link:hover { background: rgba(255,255,255,0.1); }
+    .nav-link.active { background: rgba(0,212,170,0.25); color: #00d4aa; }
+    #tab-0 { transition: max-height 0.6s cubic-bezier(0.4,0,0.2,1), padding 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease; overflow: hidden; max-height: 100vh; opacity: 1; }
     #tab-0.collapsed { max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; min-height: 0 !important; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .spinner { width: 48px; height: 48px; border: 3px solid rgba(0, 212, 170, 0.2); border-top-color: #00d4aa; border-radius: 50%; animation: spin 0.8s linear infinite; }
-    @keyframes pulse-dot { 0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1); } }
-    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #00d4aa; margin: 0 3px; }
-    .dot:nth-child(1) { animation: pulse-dot 1.2s ease-in-out infinite 0s; }
-    .dot:nth-child(2) { animation: pulse-dot 1.2s ease-in-out infinite 0.2s; }
-    .dot:nth-child(3) { animation: pulse-dot 1.2s ease-in-out infinite 0.4s; }
-    .score-bar-fill { width: 0%; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
-    #profile-panel { transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease; overflow: hidden; max-height: 0; opacity: 0; }
-    #profile-panel.open { max-height: 480px; opacity: 1; }
+    .spinner { width: 48px; height: 48px; border: 3px solid rgba(0,212,170,0.2); border-top-color: #00d4aa; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes pulse-dot { 0%,80%,100%{opacity:0.2; transform:scale(0.8);} 40%{opacity:1; transform:scale(1);} }
+    .dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:#00d4aa; margin:0 3px; }
+    .dot:nth-child(1){ animation: pulse-dot 1.2s ease-in-out infinite 0s; }
+    .dot:nth-child(2){ animation: pulse-dot 1.2s ease-in-out infinite 0.2s; }
+    .dot:nth-child(3){ animation: pulse-dot 1.2s ease-in-out infinite 0.4s; }
+    .score-bar-fill { width: 0%; transition: width 1s cubic-bezier(0.4,0,0.2,1); }
+    #profile-panel { transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease; overflow: hidden; max-height: 0; opacity: 0; }
+    #profile-panel.open { max-height: 560px; opacity: 1; }
     .match-glow { box-shadow: 0 0 20px rgb(0 212 170 / 0.4); }
     .filter-chip { transition: all 0.2s ease; }
     .filter-chip.active { background-color: #00d4aa; color: #0a1f1a; border-color: #00d4aa; }
-    .key-match-container { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
+    .key-match-container { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
   </style>
 </head>
 <body class="bg-[#0a1f1a] text-white">
 
-  <!-- Navbar -->
   <nav class="glass fixed top-0 left-0 right-0 z-50 border-b border-white/10">
     <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
       <div onclick="showTab(0)" class="flex items-center gap-3 cursor-pointer hover:opacity-90 transition-all">
@@ -60,7 +59,6 @@
     </div>
   </nav>
 
-  <!-- Hero / Search Tab -->
   <div id="tab-0" class="tab-content hero-bg hidden pt-24 min-h-screen flex items-center">
     <div class="max-w-screen-2xl mx-auto px-8 w-full">
       <div class="max-w-3xl mx-auto text-center">
@@ -84,10 +82,8 @@
     </div>
   </div>
 
-  <!-- Results Area -->
   <div id="results-area" class="max-w-screen-2xl mx-auto px-8 py-8"></div>
 
-  <!-- Saved Jobs Tab -->
   <div id="tab-1" class="tab-content hidden pt-24">
     <div class="max-w-screen-2xl mx-auto px-12 py-12">
       <h2 class="text-4xl font-semibold mb-8">Your Saved Jobs</h2>
@@ -95,7 +91,6 @@
     </div>
   </div>
 
-  <!-- For Employers Tab -->
   <div id="tab-2" class="tab-content hidden pt-24">
     <div class="max-w-screen-2xl mx-auto px-8 py-20 text-center">
       <h2 class="text-5xl font-semibold mb-6">Hire the best talent in life sciences</h2>
@@ -105,7 +100,7 @@
   </div>
 
   <footer class="bg-black/40 py-12 text-center text-gray-400">
-    <p class="mb-4"><a href="/jobs" class="text-emerald-400 hover:text-emerald-300 transition">Browse All Live Jobs</a></p>
+    <p class="mb-4"><a href="jobs/" class="text-emerald-400 hover:text-emerald-300 transition">Browse All Live Jobs</a></p>
     <p>&copy; 2026 PharmaCareer Hub • Built for the future of life sciences</p>
     <p class="mt-3 text-sm">Questions? Contact us at <a href="mailto:info@pharmacareerhub.com" class="text-emerald-400 hover:text-emerald-300 transition">info@pharmacareerhub.com</a></p>
   </footer>
@@ -116,25 +111,24 @@
     let filteredJobs = [];
     let savedJobs = JSON.parse(localStorage.getItem('savedJobs')) || [];
     let candidateProfile = localStorage.getItem('candidateProfile') || '';
+    let geminiKey = localStorage.getItem('geminiKey') || '';
     let activeFilters = { workStyle: new Set(), therapeutic: new Set(), roleType: new Set() };
 
     const FILTER_OPTIONS = {
       workStyle: ['Remote', 'Hybrid', 'On-site'],
-      therapeutic: ['Oncology', 'Immunology', 'Rare Disease', 'CNS', 'Cardiovascular', 'Infectious Disease', 'Neurology', 'Metabolic', 'Autoimmune'],
-      roleType: ['Regulatory Affairs', 'Clinical Operations', 'Pharmacovigilance', 'Medical Affairs', 'CMC', 'Quality Assurance', 'Biostatistics', 'Drug Safety']
+      therapeutic: ['Oncology','Immunology','Rare Disease','CNS','Cardiovascular','Infectious Disease','Neurology','Metabolic','Autoimmune'],
+      roleType: ['Regulatory Affairs','Clinical Operations','Pharmacovigilance','Medical Affairs','CMC','Quality Assurance','Biostatistics','Drug Safety']
     };
 
     const CHUNK = 6;
+    const AI_SYSTEM_PROMPT = `You are an expert pharmaceutical/biotech recruiter. Score the candidate against the job on a 0-100 scale. Return **ONLY** valid JSON with this exact structure and nothing else (no markdown, no extra text):
+{ "overall": number, "skills": number, "seniority": number, "therapeutic": number, "role_type": number, "key_matches": ["short bullet 1", "short bullet 2"], "insight": "One short sentence explaining the match", "insight_type": "positive" or "caution" }`;
 
     function getJobCategories(job) {
       const text = `${job.title || ''} ${job.description || ''}`.toLowerCase();
       const cats = { therapeutic: [], roleType: [] };
-      FILTER_OPTIONS.therapeutic.forEach(area => {
-        if (text.includes(area.toLowerCase())) cats.therapeutic.push(area);
-      });
-      FILTER_OPTIONS.roleType.forEach(role => {
-        if (text.includes(role.toLowerCase())) cats.roleType.push(role);
-      });
+      FILTER_OPTIONS.therapeutic.forEach(area => { if (text.includes(area.toLowerCase())) cats.therapeutic.push(area); });
+      FILTER_OPTIONS.roleType.forEach(role => { if (text.includes(role.toLowerCase())) cats.roleType.push(role); });
       return cats;
     }
 
@@ -144,7 +138,6 @@
         const dateStr = job.extensions.find(ext => typeof ext === 'string' && (ext.includes('ago') || ext.includes('hour') || ext.includes('day') || ext.includes('today')));
         if (dateStr) return dateStr;
       }
-      if (job.detected_extensions && job.detected_extensions.posted_at) return job.detected_extensions.posted_at;
       return 'Recently posted';
     }
 
@@ -170,28 +163,19 @@
           <button onclick="clearFilters()" class="text-sm text-gray-400 hover:text-white">Clear all</button>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-6">`;
-
-      html += `<div>
-        <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Work Style</p>
-        <div class="grid grid-cols-3 gap-2">`;
+      html += `<div><p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Work Style</p><div class="grid grid-cols-3 gap-2">`;
       FILTER_OPTIONS.workStyle.forEach(style => {
         const active = activeFilters.workStyle.has(style) ? 'active' : '';
         html += `<button onclick="toggleFilter('workStyle', '${style}')" class="filter-chip text-sm px-4 py-2 border border-white/20 rounded-3xl ${active}">${style}</button>`;
       });
       html += `</div></div>`;
-
-      html += `<div>
-        <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Therapeutic Area</p>
-        <div class="flex flex-wrap gap-2 max-h-28 overflow-y-auto pr-2">`;
+      html += `<div><p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Therapeutic Area</p><div class="flex flex-wrap gap-2 max-h-28 overflow-y-auto pr-2">`;
       FILTER_OPTIONS.therapeutic.forEach(area => {
         const active = activeFilters.therapeutic.has(area) ? 'active' : '';
         html += `<button onclick="toggleFilter('therapeutic', '${area}')" class="filter-chip text-sm px-4 py-2 border border-white/20 rounded-3xl ${active}">${area}</button>`;
       });
       html += `</div></div>`;
-
-      html += `<div>
-        <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Role Type</p>
-        <div class="flex flex-wrap gap-2 max-h-28 overflow-y-auto pr-2">`;
+      html += `<div><p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Role Type</p><div class="flex flex-wrap gap-2 max-h-28 overflow-y-auto pr-2">`;
       FILTER_OPTIONS.roleType.forEach(role => {
         const active = activeFilters.roleType.has(role) ? 'active' : '';
         html += `<button onclick="toggleFilter('roleType', '${role}')" class="filter-chip text-sm px-4 py-2 border border-white/20 rounded-3xl ${active}">${role}</button>`;
@@ -226,7 +210,7 @@
         <div><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
       </div>`;
 
-         try {
+      try {
         let jobs;
         try {
           const res = await fetch(`${BACKEND}/api/search`, {
@@ -268,21 +252,16 @@
             <div class="w-8 h-8 rounded-full bg-emerald-400/20 flex items-center justify-center text-emerald-400 text-sm font-bold">AI</div>
             <div>
               <p class="font-semibold text-white text-sm">AI Match Scoring</p>
-              <p id="profile-status-label" class="text-xs mt-0.5 ${candidateProfile ? 'text-emerald-400' : 'text-gray-400'}">${candidateProfile ? '✓ Profile ready — AI match active' : 'Paste summary or upload CV for AI scoring'}</p>
+              <p id="profile-status-label" class="text-xs mt-0.5 ${candidateProfile ? 'text-emerald-400' : 'text-gray-400'}">${candidateProfile ? '✓ Profile ready — AI match active' : 'Paste summary + add Gemini key for AI scoring'}</p>
             </div>
           </div>
           <span id="profile-chevron" class="text-gray-400 text-lg transition-transform duration-300">▼</span>
         </button>
         <div id="profile-panel">
           <div class="mt-5 border-t border-white/10 pt-5">
-            <p class="text-sm text-gray-400 mb-3">Paste your experience OR upload your CV (PDF or Word)</p>
-            <div class="flex gap-3 mb-4">
-              <label class="flex-1 cursor-pointer bg-white/5 hover:bg-white/10 border border-white/20 rounded-2xl px-5 py-4 text-center transition flex items-center justify-center gap-2">
-                <input type="file" id="cv-upload" accept=".pdf,.docx" class="hidden" onchange="uploadCV()">
-                <span class="text-emerald-400 text-sm font-medium">📄 Upload CV (PDF or Word)</span>
-              </label>
-            </div>
-            <textarea id="profile-input" class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400/50 resize-none" rows="6" placeholder="Or paste your resume summary here...">${candidateProfile}</textarea>
+            <input id="gemini-key" type="password" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400/50 mb-3" placeholder="🔑 Gemini API key (optional — stays only in your browser)" value="${geminiKey}">
+            <p class="text-sm text-gray-400 mb-3">Paste your experience below (CV upload arrives with the live server)</p>
+            <textarea id="profile-input" class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400/50 resize-none" rows="6" placeholder="Paste your resume summary here...">${candidateProfile}</textarea>
             <div class="flex gap-3 mt-3">
               <button onclick="saveProfile()" class="bg-emerald-400 hover:bg-emerald-500 text-black font-semibold px-6 py-2.5 rounded-2xl text-sm">Save &amp; Score All Jobs</button>
               ${candidateProfile ? `<button onclick="clearProfile()" class="text-gray-400 hover:text-white text-sm px-4 py-2.5">Clear profile</button>` : ''}
@@ -357,7 +336,7 @@
             </div>
           </div>
           ${hasScore ? `
-            <div class="mt-5 grid grid-cols-2 gap-x-8 gap-y-2" id="bars-${originalIndex}">
+            <div class="mt-5 grid grid-cols-2 gap-x-8 gap-y-2">
               ${renderScoreBars(job._score, barColor)}
             </div>
             <div class="mt-4 text-sm rounded-xl px-4 py-3 ${job._score.insight_type === 'positive' ? 'bg-emerald-400/10 text-emerald-300 border border-emerald-400/20' : 'bg-amber-400/10 text-amber-300 border border-amber-400/20'}">
@@ -402,14 +381,13 @@
     }
 
     function saveProfile() {
-      const input = document.getElementById('profile-input');
-      candidateProfile = input.value.trim();
+      candidateProfile = document.getElementById('profile-input').value.trim();
+      geminiKey = document.getElementById('gemini-key').value.trim();
       localStorage.setItem('candidateProfile', candidateProfile);
-      const panel = document.getElementById('profile-panel');
+      localStorage.setItem('geminiKey', geminiKey);
+      document.getElementById('profile-panel').classList.remove('open');
+      document.getElementById('profile-chevron').style.transform = '';
       const label = document.getElementById('profile-status-label');
-      const chevron = document.getElementById('profile-chevron');
-      if (panel) panel.classList.remove('open');
-      if (chevron) chevron.style.transform = '';
       if (label) label.textContent = '✓ Profile saved — scoring jobs…';
       scoreAllJobs();
     }
@@ -420,24 +398,30 @@
       renderFilteredResults();
     }
 
-    async function uploadCV() {
-      const fileInput = document.getElementById('cv-upload');
-      const file = fileInput.files[0];
-      if (!file) return;
-      const formData = new FormData();
-      formData.append('file', file);
-      try {
-        const res = await fetch(`${BACKEND}/api/extract-cv`, { method: 'POST', body: formData });
-        const data = await res.json();
-        if (data.error) { alert(data.error); return; }
-        document.getElementById('profile-input').value = data.text;
-        candidateProfile = data.text;
-        localStorage.setItem('candidateProfile', candidateProfile);
-        saveProfile();
-        fileInput.value = '';
-      } catch (err) {
-        alert("Upload failed. Please try again.");
-      }
+    function cleanAiJson(raw) {
+      raw = raw.replace(/```(?:json)?\s*/g, '').replace(/```\s*$/g, '');
+      const m = raw.match(/\{[\s\S]*\}/);
+      if (m) raw = m[0];
+      raw = raw.replace(/'/g, '"').replace(/,\s*}/g, '}');
+      const s = JSON.parse(raw);
+      ["overall","skills","seniority","therapeutic","role_type"].forEach(k => {
+        if (k in s) s[k] = Math.max(0, Math.min(100, parseInt(s[k] || 0)));
+      });
+      if (!Array.isArray(s.key_matches)) s.key_matches = [];
+      return s;
+    }
+
+    async function scoreViaBrowser(job) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${geminiKey}`;
+      const payload = {
+        system_instruction: { parts: [{ text: AI_SYSTEM_PROMPT }] },
+        contents: [{ role: "user", parts: [{ text: `CANDIDATE PROFILE: ${candidateProfile}\nJOB TITLE: ${job.title || ''}\nCOMPANY: ${job.company || ''}\nJOB DESCRIPTION: ${job.description || ''}` }] }],
+        generationConfig: { response_mime_type: "application/json", temperature: 0.1, max_output_tokens: 800 }
+      };
+      const resp = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      if (!resp.ok) throw new Error();
+      const data = await resp.json();
+      return cleanAiJson(data.candidates[0].content.parts[0].text.trim());
     }
 
     async function scoreAllJobs() {
@@ -455,18 +439,23 @@
       const job = allJobs[index];
       if (!job || job._score) return;
       try {
-        const res = await fetch(`${BACKEND}/api/match`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            candidate_profile: candidateProfile,
-            job_title: job.title || '',
-            job_company: job.company || '',
-            job_description: job.description || ''
-          })
-        });
-        if (!res.ok) throw new Error();
-        const score = await res.json();
+        let score;
+        if (geminiKey) {
+          score = await scoreViaBrowser(job);
+        } else {
+          const res = await fetch(`${BACKEND}/api/match`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              candidate_profile: candidateProfile,
+              job_title: job.title || '',
+              job_company: job.company || '',
+              job_description: job.description || ''
+            })
+          });
+          if (!res.ok) throw new Error();
+          score = await res.json();
+        }
         allJobs[index]._score = score;
         filteredJobs = filteredJobs.map(j => j.link === job.link ? { ...j, _score: score } : j);
         renderFilteredResults();
@@ -529,7 +518,7 @@
       showTab(0);
       document.querySelectorAll('input').forEach(input => {
         input.addEventListener('keypress', e => {
-          if (e.key === 'Enter') runSearch();
+          if (e.key === 'Enter' && (input.id === 'job-title' || input.id === 'location')) runSearch();
         });
       });
     });
