@@ -115,6 +115,7 @@
 
   <script>
     const BACKEND = window.location.origin;
+        const WORKER_URL = "https://pch-proxy.giyer2002.workers.dev"; // ← your worker URL
     let allJobs = [];
     let filteredJobs = [];
     let savedJobs = JSON.parse(localStorage.getItem('savedJobs')) || [];
@@ -151,16 +152,13 @@
     }
 
     async function searchSerpApi(title, loc) {
-      const params = new URLSearchParams({
-        engine: 'google_jobs',
-        q: `${title} ${loc}`,
-        hl: 'en',
-        gl: 'us',
-        chips: 'date_posted:week',
-        api_key: serpKey
+            if (!WORKER_URL) throw new Error('no worker');
+      const resp = await fetch(`${WORKER_URL}/api/serp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ q: `${title} ${loc}` })
       });
-      const resp = await fetch(`https://serpapi.com/search?${params}`);
-      if (!resp.ok) throw new Error('SerpApi error ' + resp.status);
+      if (!resp.ok) throw new Error('Serp proxy error ' + resp.status);
       const data = await resp.json();
       return (data.jobs_results || []).map(job => {
         const opts = job.apply_options || [{}];
@@ -271,13 +269,9 @@
           });
           if (!res.ok) throw new Error();
           jobs = await res.json();
-        } catch {
-          if (serpKey) {
-            try { jobs = await searchSerpApi(title, loc); }
-            catch { jobs = await loadStaticJobs(title); }
-          } else {
-            jobs = await loadStaticJobs(title);
-          }
+              } catch {
+          try { jobs = await searchSerpApi(title, loc); }
+          catch { jobs = await loadStaticJobs(title); }
         }
         allJobs = jobs;
         applyFilters();
