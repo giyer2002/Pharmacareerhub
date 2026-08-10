@@ -112,6 +112,7 @@
     let savedJobs = JSON.parse(localStorage.getItem('savedJobs')) || [];
     let candidateProfile = localStorage.getItem('candidateProfile') || '';
     let geminiKey = localStorage.getItem('geminiKey') || '';
+        let serpKey = localStorage.getItem('serpKey') || '';
     let activeFilters = { workStyle: new Set(), therapeutic: new Set(), roleType: new Set() };
 
     const FILTER_OPTIONS = {
@@ -121,6 +122,44 @@
     };
 
     const CHUNK = 6;
+        async function loadStaticJobs(title) {
+      const r = await fetch('data/jobs.json');
+      const all = await r.json();
+      const q = title.toLowerCase();
+      return all.filter(j =>
+        (j.title || '').toLowerCase().includes(q) ||
+        (j.description || '').toLowerCase().includes(q)
+      );
+    }
+
+    async function searchSerpApi(title, loc) {
+      const params = new URLSearchParams({
+        engine: 'google_jobs',
+        q: `${title} ${loc}`,
+        hl: 'en',
+        gl: 'us',
+        chips: 'date_posted:week',
+        api_key: serpKey
+      });
+      const resp = await fetch(`https://serpapi.com/search?${params}`);
+      if (!resp.ok) throw new Error('SerpApi error ' + resp.status);
+      const data = await resp.json();
+      return (data.jobs_results || []).map(job => {
+        const opts = job.apply_options || [{}];
+        const link = job.apply_link || opts[0].link || job.share_link || job.link || '#';
+        const blob = JSON.stringify(job).toLowerCase();
+        return {
+          title: job.title || 'Untitled role',
+          company: job.company_name || '',
+          location: job.location || '',
+          link,
+          description: job.description || job.snippet || 'No description available.',
+          salary: job.salary || '',
+          posted_date: job.date_posted || '',
+          remote_hybrid: blob.includes('remote') ? 'Remote' : blob.includes('hybrid') ? 'Hybrid' : 'On-site'
+        };
+      });
+    }
     const AI_SYSTEM_PROMPT = `You are an expert pharmaceutical/biotech recruiter. Score the candidate against the job on a 0-100 scale. Return **ONLY** valid JSON with this exact structure and nothing else (no markdown, no extra text):
 { "overall": number, "skills": number, "seniority": number, "therapeutic": number, "role_type": number, "key_matches": ["short bullet 1", "short bullet 2"], "insight": "One short sentence explaining the match", "insight_type": "positive" or "caution" }`;
 
@@ -220,14 +259,13 @@
           });
           if (!res.ok) throw new Error();
           jobs = await res.json();
-        } catch {
-          const r = await fetch('data/jobs.json');
-          const all = await r.json();
-          const q = title.toLowerCase();
-          jobs = all.filter(j =>
-            (j.title || '').toLowerCase().includes(q) ||
-            (j.description || '').toLowerCase().includes(q)
-          );
+         } catch {
+          if (serpKey) {
+            try { jobs = await searchSerpApi(title, loc); }
+            catch { jobs = await loadStaticJobs(title); }
+          } else {
+            jobs = await loadStaticJobs(title);
+          }
         }
         allJobs = jobs;
         applyFilters();
@@ -259,6 +297,7 @@
         </button>
         <div id="profile-panel">
           <div class="mt-5 border-t border-white/10 pt-5">
+                      <input id="serp-key" type="password" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400/50 mb-3" placeholder="🔑 SerpApi key (optional — enables LIVE Google Jobs search)" value="${serpKey}">
             <input id="gemini-key" type="password" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400/50 mb-3" placeholder="🔑 Gemini API key (optional — stays only in your browser)" value="${geminiKey}">
             <p class="text-sm text-gray-400 mb-3">Paste your experience below (CV upload arrives with the live server)</p>
             <textarea id="profile-input" class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400/50 resize-none" rows="6" placeholder="Paste your resume summary here...">${candidateProfile}</textarea>
@@ -383,8 +422,10 @@
     function saveProfile() {
       candidateProfile = document.getElementById('profile-input').value.trim();
       geminiKey = document.getElementById('gemini-key').value.trim();
+      serpKey = document.getElementById('serp-key').value.trim();
       localStorage.setItem('candidateProfile', candidateProfile);
       localStorage.setItem('geminiKey', geminiKey);
+      localStorage.setItem('serpKey', serpKey);
       document.getElementById('profile-panel').classList.remove('open');
       document.getElementById('profile-chevron').style.transform = '';
       const label = document.getElementById('profile-status-label');
