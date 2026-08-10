@@ -447,7 +447,22 @@
       if (!Array.isArray(s.key_matches)) s.key_matches = [];
       return s;
     }
-
+    async function scoreViaWorker(job) {
+      if (!WORKER_URL) throw new Error('no worker');
+      const resp = await fetch(`${WORKER_URL}/api/match`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          candidate_profile: candidateProfile,
+          job_title: job.title || '',
+          job_company: job.company || '',
+          job_description: job.description || ''
+        })
+      });
+      if (!resp.ok) throw new Error('match proxy error ' + resp.status);
+      const data = await resp.json();
+      return cleanAiJson(data.candidates[0].content.parts[0].text.trim());
+    }
     async function scoreViaBrowser(job) {
       const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${geminiKey}`;
       const payload = {
@@ -476,22 +491,12 @@
       const job = allJobs[index];
       if (!job || job._score) return;
       try {
-        let score;
-        if (geminiKey) {
-          score = await scoreViaBrowser(job);
-        } else {
-          const res = await fetch(`${BACKEND}/api/match`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              candidate_profile: candidateProfile,
-              job_title: job.title || '',
-              job_company: job.company || '',
-              job_description: job.description || ''
-            })
-          });
-          if (!res.ok) throw new Error();
-          score = await res.json();
+           let score;
+        try {
+          score = await scoreViaWorker(job);          // site key — works for everyone
+        } catch {
+          if (!geminiKey) throw new Error('no ai key');
+          score = await scoreViaBrowser(job);         // visitor's own key as backup
         }
         allJobs[index]._score = score;
         filteredJobs = filteredJobs.map(j => j.link === job.link ? { ...j, _score: score } : j);
